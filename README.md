@@ -1,4 +1,6 @@
 projecteuler
 ============
 
-My solutions to ProjectEuler.net problems
+Solutions to ProjectEuler  problems
+
+Languages: Python, Haskell, Julia
