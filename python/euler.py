@@ -15,9 +15,9 @@ def sieve_eratosthenes(n):
 
 def gauss_jordan(m, eps=10**(-9)):
     """Performs Guass Jordan elimination on the augmented matrix m
-       converts the 2D array m to row reduced echelon form
-       assumes that m is a N x N+1 matrix and a solvable system
-       Returns True if successful, False if 'm' is singular.
+    converts the 2D array m to row reduced echelon form
+    assumes that m is a N x N+1 matrix and a solvable system
+    Returns True if successful, False if 'm' is singular.
     """
     h, w = len(m), len(m[0])
 
@@ -35,7 +35,7 @@ def gauss_jordan(m, eps=10**(-9)):
             if y2 == y:
                 continue
             for x in range(y, w):
-                m[y2][x]  = m[y2][x] - m[y][x]*c
+                m[y2][x] = m[y2][x] - m[y][x]*c
 
     # Normalize all rows
     for y in range(0, h):
@@ -43,6 +43,7 @@ def gauss_jordan(m, eps=10**(-9)):
         for x in range(w):
             m[y][x] /= c
     return True
+
 
 def solve_ls(A, b):
     """Solves the Linear System A@x = b
@@ -55,9 +56,9 @@ def solve_ls(A, b):
 if __name__ == '__main__':
     A = [[2, -1, 0],
          [-1, 2, -1],
-         [0, -1, 2] ]
+         [0, -1, 2]]
     print(A)
-    b = [1, 0 , 0]
+    b = [1, 0, 0]
     print(solve_ls(A, b))
     b = [0, 1, 0]
     print(solve_ls(A, b))
