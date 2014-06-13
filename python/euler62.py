@@ -1,17 +1,6 @@
 from itertools import count
-import time
+from euler import timeit
 
-def timeit(func):
-
-    def timed(*args, **kw):
-        ts = time.time()
-        result = func(*args, **kw)
-        te = time.time()
-
-        print('%s(%r, %r) %3.3f sec' % (func.__name__, args, kw, te-ts))
-        return result
-
-    return timed
 
 @timeit
 def main():

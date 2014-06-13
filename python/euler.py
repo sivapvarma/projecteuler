@@ -1,3 +1,21 @@
+from time import time
+
+
+def timeit(func):
+    """ Decorator to time functions
+    prints time of execution in seconds.
+    """
+    def timed(*args, **kw):
+        ts = time()
+        result = func(*args, **kw)
+        te = time()
+
+        print('%s(%r, %r) %3.3f sec' % (func.__name__, args, kw, te-ts))
+        return result
+    
+    return timed
+
+
 def sieve_eratosthenes(n):
     """Returns a list of prime numbers upto n
     uses sieve of eratosthenes
