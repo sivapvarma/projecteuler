@@ -66,6 +66,7 @@ def gauss_jordan(m, eps=10**(-9)):
 def solve_ls(A, b):
     """Solves the Linear System A@x = b
     returns vector x such that A@x = b
+    uses elimination
     """
     m = [row[:]+[right] for row, right in zip(A, b)]
     return [row[-1] for row in m] if gauss_jordan(m) else None
