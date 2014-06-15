@@ -65,7 +65,7 @@ def chakravala(D, verbose=0):
                 p1 = p1 + k_abs
 
         # update equations for chakravala
-        x, y, k = (x*p1 + D*y)//k_abs, (x + y*p1)//k_abs, (p1**2 - D)/k
+        x, y, k = (x*p1 + D*y) // k_abs, (x + y*p1) // k_abs, (p1**2 - D) // k
         p = p1
 
         if verbose:
@@ -73,6 +73,19 @@ def chakravala(D, verbose=0):
             print('%2d %4d %4d %4d %4d' % (i, p, k, x, y))
 
     return int(x), int(y)
+
+
+def check(lim):
+    cnt = 0
+    for D in range(1, lim+1):
+        if isqrt(D)**2 != D:
+            x, y = chakravala(D)
+            # x, y = int(x), int(y)
+            tmp = x**2 - (D*(y**2))
+            if tmp != 1:
+                cnt += 1
+                print(D)
+    print('%d errors' % cnt)
 
 
 if __name__ == '__main__':
@@ -88,4 +101,6 @@ if __name__ == '__main__':
     print(isqrt(25), is_integer_squared(25))
     print(isqrt(26), is_integer_squared(26))
     solve(1000)
-    solve(10000)
+    check(1000)
+    check(100000)
+    # solve(10000)
