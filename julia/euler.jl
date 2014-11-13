@@ -31,3 +31,26 @@ function is_prime(n::Int64)
 
     return true
 end
+
+
+function derivative(f)
+    # returns a function that computes the numerical derivative of f
+    # Source: Forio Julia Tutorial
+    # Reference: http://en.wikipedia.org/wiki/Numerical_differentiation#Practical_considerations_using_floating_point_arithmetic
+    return function(x)
+        # pick small value for h
+        h = x == 0 ? sqrt(eps(Float64)) : sqrt(eps(Float64))*x
+
+        # floating point arithmetic gymnastics
+        xph = x + h
+        dx  = xph - x
+
+        # evaluate f at  x + h
+        f1 = f(xph)
+        # evaluate f at x
+        f0 = f(x)
+
+        # divide the difference by h
+        return (f1 - f0) / dx
+    end
+end
