@@ -1,4 +1,4 @@
-A = readcsv("p081_matrix.txt")
+A = readcsv("../data/p081_matrix.txt")
 h, w = size(A)
 B = zeros(A)
 for i in 1:h
