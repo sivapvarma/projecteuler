@@ -1,4 +1,4 @@
-% : %.lhs %.hs
+% : %.lhs
 	ghc -O3 --make $<
 	rm $@.o $@.hi
 	mv $@ $@.out
