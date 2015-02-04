@@ -71,6 +71,18 @@ def solve_ls(A, b):
     m = [row[:]+[right] for row, right in zip(A, b)]
     return [row[-1] for row in m] if gauss_jordan(m) else None
 
+def gcd(a, b):
+    """GCD(Greatest Common Divisor) or HCF(Highest Common Factor) of a, b
+    gcd(a, b) =  gcd( (a//b)*b + a%b, b) = gcd(b, a%b)
+    if b==0: then b%a==0 so return a
+    """
+    if b==0:
+        return a
+    elif b > a:
+        return gcd(b, a)
+    else:
+        return gcd(b, a%b)
+
 
 if __name__ == '__main__':
     A = [[2, -1, 0],
@@ -83,3 +95,4 @@ if __name__ == '__main__':
     print(solve_ls(A, b))
     b = [0, 0, 1]
     print(solve_ls(A, b))
+    print("gcd(28, 16) =", gcd(28, 16))
