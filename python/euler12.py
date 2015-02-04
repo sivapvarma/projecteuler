@@ -9,11 +9,13 @@ if __name__ == '__main__':
         tri = tri + i
         i = i + 1
         # find number of divisors
+        # do the prime factorization and use exponents
+        # of primes in factorization
         div = 1
         tmp = tri
         for p in primes:
             cnt = 0
-            while tmp%p == 0:
+            while tmp % p == 0:
                 tmp = tmp/p
                 cnt += 1
             div = div*(cnt+1)
@@ -22,7 +24,3 @@ if __name__ == '__main__':
         if div > div_req:
             print('First triangle number to have over 500 divisors: %d' % tri)
             break
-
-
-
-
