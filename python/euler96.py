@@ -12,7 +12,8 @@ unitslist = ([cross(rows, c) for c in cols] +
 
 units = {s:[u for u in unitslist if s in u] for s in squares}
 
-peers = {s:set(sum(units[s], []))-set(s) for s in squares}
+#peers = {s:(set(sum(units[s], []))-set([s])) for s in squares}
+peers = {s:{sq for u in units[s] for sq in u if sq != s} for s in squares}
 
 def parse_grid(grid):
     """Convert grid to a dict of possible values, {square:digits}, or
@@ -35,38 +36,54 @@ def grid_values(grid):
 def assign(values, s, d):
     """Eliminate all the other values (except d) from vlaues[s] and propagate.
     Return values, except return False if a contradiction is detected."""
+    #display(values)
+    #print('Assign', s, d)
+    #print('Assign','values['+s+']', values[s])
     other_values = values[s].replace(d, '')
+    #print('other_values', other_values)
+    #print('Assign','values['+s+']', values[s])
     if all(eliminate(values, s, d2) for d2 in other_values):
         return values
     else:
+        #print('Contradiction in Assign')
         return False
 
 def eliminate(values, s, d):
     """Eliminate d from values[s]; propagate when values or places <= 2.
     Return values, except return False if a contradiction is detected."""
+    #print('Eliminate ', s, d)
     if d not in values[s]:
+        #print('Already eliminated')
         return values # Already eliminated
+    #print('values['+s+']', values[s])
     values[s] = values[s].replace(d, '')
+    #print('values['+s+']', values[s])
     ## (1) If a square s is reduced to one value d2, then eliminate d2 from the peers
     if len(values[s]) == 0:
-        print('Contradiction')
+        #print('Contradiction: removed last value')
         return False # Contradiction: removed last value
     elif len(values[s]) == 1:
+        #print('len 1')
         d2 = values[s]
+        #if s in peers[s]:
+        #    print('Here is the issue')
+        # if there is only one option for s, eliminate that option
+        # if you cant eliminate that from peers there is a problem
         if not all(eliminate(values, s2, d2) for s2 in peers[s]):
-            print('Contradiction')
+            #print('Contradiction: len 1')
             return False
     ## (2) If a unit u is reduced to only one place for a value d, then put it there
     for u in units[s]:
         dplaces = [s for s in u if d in values[s]]
         if len(dplaces) == 0:
-            print('Contradiction')
+            #print('Contradiction')
             return False # Contradiction: no place for this value
         elif len(dplaces) == 1:
             # d can only be in one place in unit: assign it there
             if not assign(values, dplaces[0], d):
-                print('Contradiction')
+                #print('Contradiction')
                 return False
+    #print('Eliminated', s, d)
     return values
 
 # Display grid
@@ -75,8 +92,8 @@ def display(values):
     width = 1 + max(len(values[s]) for s in squares)
     line = '+'.join(['-'*(width*3)]*3)
     for r in rows:
-        print(''.join(values[r+c].center(width)+('|' if c in '36' else ''))
-                      for c in cols)
+        print(''.join(''.join(values[r+c].center(width)+('|' if c in '36' else ''))
+                      for c in cols))
         if r in 'CF':
             print(line)
     print()
@@ -113,9 +130,16 @@ def parse_file(fname):
             yield gname, g
 
 if __name__ == "__main__":
+    ans = 0
     # read puzzle by puzzle and solve them and print them
     for gname, g in parse_file('../data/p096_sudoku.txt'):
         print(gname.strip())
         print(g.strip())
-        display(parse_grid(g))
+        #display(parse_grid(g))
         #display(solve(g))
+        values = solve(g)
+        tmp = 0
+        for s in ['A1', 'A2', 'A3']:
+            tmp = tmp*10 + int(values[s])
+        ans += tmp
+    print('PE #96 Ans:', ans)
