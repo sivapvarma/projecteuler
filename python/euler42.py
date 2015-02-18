@@ -1,6 +1,6 @@
 from math import sqrt
 if __name__ == '__main__':
-    with open('./data/words42.txt') as f:
+    with open('../data/p042_words.txt') as f:
         words = f.read().strip('\n').split(',')
     print('# of words = %d' % len(words))
     words = [w.strip('"') for w in words]

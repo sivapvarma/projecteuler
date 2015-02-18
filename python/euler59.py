@@ -2,7 +2,7 @@ from itertools import combinations_with_replacement as cwr
 from itertools import permutations
 
 if __name__ == '__main__':
-    with open('cipher1_59.txt', 'r') as f:
+    with open('../data/p059_cipher.txt', 'r') as f:
         line = f.readline() # only single line in the file
 
     numbers = line.rstrip().split(',')

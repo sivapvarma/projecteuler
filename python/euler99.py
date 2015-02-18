@@ -5,7 +5,7 @@ def main():
     i = 1
     res = 1
     val = 0
-    with open('./data/base_exp99.txt') as f:
+    with open('../data/p099_base_exp.txt') as f:
         for line in f:
             b, e = line.rstrip().split(',')
             b, e = int(b), int(e)
