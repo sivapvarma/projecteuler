@@ -6,7 +6,7 @@ function is_divisible(dividend, divisor)
     return dividend % divisor == 0
 end
 
-function is_prime(n::Int64)
+function is_prime(n::T) where {T<:Union{Int, BigInt}}
     # Prime Number: natural number > 1 whose only divisors are 1 & itself
     # check to see if n is divisible by any number <= sqrt(n)
 
