@@ -9,7 +9,7 @@ for c in 1:C
         else
             B[r, c] = B[r, c-1] + A[r, c]
             for pr in 1:R
-                tmp = B[pr, c-1] + (pr < r ? sum(A[pr:r, c]):sum(A[r:pr,c]))
+                tmp = B[pr, c-1] + (pr < r ? sum(A[pr:r, c]) : sum(A[r:pr,c]))
                 B[r,c] = min(B[r,c], tmp)
             end
         end
