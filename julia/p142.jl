@@ -53,29 +53,38 @@ for z in 1:limit
 end
 
 
-function p142()
-    limit = 10000
+function p142(limit = 10000)
     slimit = floor(Int, sqrt(limit))
     for ai = 1:slimit
         a = ai^2
-        for bi = 1:ai
-            b = bi^2
-            x = floor(Int, (a+b)/2)
-            y = x - b
-            for ci = 1:ai
+        for ei = 1:(ai-1)
+            e = ei^2
+            for ci = 1:(ei-1)
                 c = ci^2
-                z = c + b - x
-                d = y - z
-                e = x + z
-                f = x - z
-                is_perfect_square(d) && continue
-                is_perfect_square(e) && continue
-                is_perfect_square(f) && continue
-                println("$x, $y, $z, $(x+y+z)")
+                b = e - c
+                d = a - e
+                f = a - c
+                b <= 0 && continue
+                d <= 0 && continue
+                f <= 0 && continue
+                !is_perfect_square(b) && continue
+                !is_perfect_square(d) && continue
+                !is_perfect_square(f) && continue
+                x, y, z = (a+b), (c+d), (e-f)
+                x%2 != 0 && continue
+                y%2 != 0 && continue
+                z%2 != 0 && continue
+                x, y, z = x/2, y/2, z/2
+                x <= 0 && continue
+                y <= 0 && continue
+                z <= 0 && continue
+
+                println("$x, $y, $z, $(round(Int, x+y+z))")
+                println("$a, $b, $c, $d, $e, $f")
                 return x + y + z
             end
         end
     end
 end  # function p142
 
-@time p142()
+@time p142(1000000)
