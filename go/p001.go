@@ -9,5 +9,5 @@ func main() {
 			res += n
 		}
 	} 
-	fmt.Println("p100: ", res)
+	fmt.Println("p100:", res)
 }
