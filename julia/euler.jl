@@ -54,3 +54,15 @@ function derivative(f)
         return (f1 - f0) / dx
     end
 end
+
+function eratosthenes(n)
+    primes = fill(true,n)
+    primes[1] = false
+    for p = 2:n
+        primes[p] || continue
+        for i = 2:div(n,p)
+            primes[p*i] = false
+        end
+    end
+    findall(primes)
+end
