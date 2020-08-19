@@ -32,6 +32,39 @@ function ncuboids(M::Int)
     return num
 end  # function ncuboids
 
+function ncuboids_fast(M::Int)
+    num = 0
+    for bph = 2:(2*M)
+        if is_perfect_square(M^2 + bph^2)
+            # logic: if bph is <= M, then place a stick in any of the possible 
+            # positions, we dont care about order so divide by 2
+            # if bph > M, one option is M, bph-M.
+            # other options both b and h should be smaller than M 
+            # we can place sticks in the first M positions, but can only start
+            # from bph/2
+            if bph <= M
+                num += floor(Int, bph/2)
+            else
+                num += 1 + M - floor(Int, (bph+1)/2)
+            end
+        end
+    end
+    return num 
+end  # function ncuboids_fast
+
+function p86_fast()
+    sols = 0
+    m = 0
+    while true
+        m += 1
+        sols += ncuboids_fast(m)
+        println("$m: $sols")
+        sols > 1000_000 && break
+    end
+    println("$p86: $m")
+    return m
+end  # function p86_fast
+
 function p86()
 sols = 0
 m = 0
@@ -42,6 +75,9 @@ while true
     sols > 1000_000 && break
 end
 println("p86: $m")
+return m
 end  # function p86
 
 @time p86()
+
+@time p86_fast()
