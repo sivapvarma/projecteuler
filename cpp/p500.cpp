@@ -77,7 +77,7 @@ int main () {
         pq.insert(pii(new_prime_exp, new_base));
     }
 
-    cout << num << endl;
+    cout << "P500: " << num << endl;
 
     return 0;
 }
